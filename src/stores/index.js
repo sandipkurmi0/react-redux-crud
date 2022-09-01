@@ -11,12 +11,14 @@ import { todoReducer } from "./todo/reducers";
 import { authReducer } from "./auth/reducers";
 import { categoryReducer } from "./category/reducers";
 import { blogReducer } from "./blog/reducers.js";
+import { groupReducer } from "./group/reducers";
 
 const rootReducer = combineReducers({
   todo: todoReducer,
   auth: authReducer,
   category: categoryReducer,
   blog: blogReducer,
+  group: groupReducer,
 });
 const persistConfig = {
   // Root

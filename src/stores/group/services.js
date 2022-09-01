@@ -2,11 +2,15 @@ import axios from "axios";
 
 import { API_URL } from "../../config";
 
-export function __login(formData) {
+export function __getAllGroupList(token) {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${API_URL}/login`, formData)
-      .then((response) => {
+      .get(`${API_URL}/groupList`, {
+        headers: {
+          authorization: token,
+        },
+      })
+      .then(async (response) => {
         resolve(response.data);
       })
       .catch((err) => {
@@ -15,10 +19,14 @@ export function __login(formData) {
   });
 }
 
-export function __signUp(formData) {
+export function __deleteGroupAndContact(id, token) {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${API_URL}/user`, formData)
+      .get(`${API_URL}/deleteContactByGroup/${id}`, {
+        headers: {
+          authorization: token,
+        },
+      })
       .then(async (response) => {
         resolve(response.data);
       })

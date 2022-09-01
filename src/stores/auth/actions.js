@@ -1,44 +1,52 @@
-import { LOGIN_REMOVE_TOKEN, LOGIN_SUCCESS, LOGIN_LOADING } from "./constants";
-import { __login } from "./services"
+import { LOGIN_REMOVE_TOKEN, LOGIN_SUCCESS } from "./constants";
+import { __login, __signUp } from "./services";
 
-export function setLoginToken(params){
-    return {
-        type: LOGIN_SUCCESS,
-        payload: params,
-      };
+export function setLoginToken(params) {
+  return {
+    type: LOGIN_SUCCESS,
+    payload: params,
+  };
 }
 
-export function loginSetLoading(loading) {
-    return {
-      type: LOGIN_LOADING,
-      payload: loading,
-    };
-  }
-
-export function userLogout(){
-    return {
-        type: LOGIN_REMOVE_TOKEN,
-      };
+export function userLogout() {
+  return {
+    type: LOGIN_REMOVE_TOKEN,
+  };
 }
 
-
+export const signUp = (formData) => (dispatch) => {
+  console.log(formData);
+  return new Promise((resolve, reject) => {
+    __signUp(formData)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
 
 export const login = (formData) => (dispatch) => {
-    return new Promise((resolve, reject) => {
-        dispatch(loginSetLoading(true));
-        __login(formData).then(async (response) => {
-            dispatch(setLoginToken(response))
-        }).catch((err) => {
-			reject(err)
-		}).finally(() => {
-			dispatch(loginSetLoading(false));
-		})
-    })
-}
+  console.log(formData);
+  return new Promise((resolve, reject) => {
+    __login(formData)
+      .then((response) => {
+        console.log(response);
+        dispatch(setLoginToken(response));
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
 
 export const logout = () => (dispatch) => {
-    return new Promise((resolve, reject) => {
-        dispatch(userLogout());
-    });
-}
+  dispatch(userLogout());
+};
 
+// export const logout = () => (dispatch) => {
+//   return new Promise((resolve, reject) => {
+//     dispatch(userLogout());
+//   });
+// };

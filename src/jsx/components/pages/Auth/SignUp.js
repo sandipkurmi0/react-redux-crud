@@ -1,25 +1,29 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { login } from "../../../../stores/auth/actions";
+import { signUp } from "../../../../stores/auth/actions";
 import TextInput from "../../layouts/shared/TextInput";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-const Login = (props) => {
+const SingUp = (props) => {
+  const history = useHistory();
   //curent state
   const [state, setState] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
   const [btnLoading, setBtnLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
-  const Login = async () => {
+  const SignUp = async () => {
     try {
       setBtnLoading(true);
-      await props.login(state);
+      const response = await props.signUp(state);
+      if (response.statusCode === 201) {
+        history.push("/login");
+      }
       setBtnLoading(false);
     } catch (error) {
-      console.log(error);
       if (typeof error?.response?.data === "object") {
         if (typeof error.response.data?.error === "string")
           setErrMsg(error.response.data?.error);
@@ -35,7 +39,7 @@ const Login = (props) => {
         <div className="w-full max-w-md">
           <form className="mt-8 overflow-hidden bg-white rounded-lg shadow-xl">
             <div className="px-10 py-12">
-              <h1 className="text-3xl font-bold text-center">Welcome Back!</h1>
+              <h1 className="text-3xl font-bold text-center">Sing Up</h1>
               {errMsg?.length > 0 && (
                 <div
                   className="flex bg-red-100 rounded-lg p-4 mb-4 mt-2 text-sm text-red-700"
@@ -45,6 +49,15 @@ const Login = (props) => {
                 </div>
               )}
               <div className="w-24 mx-auto mt-6 border-b-2" />
+              <TextInput
+                className="mt-10"
+                label="Name"
+                type="text"
+                onchangeInput={(e) => setState({ ...state, name: e })}
+                autofocus
+                autocapitalize="off"
+                inputId="name"
+              />
               <TextInput
                 className="mt-10"
                 label="Email"
@@ -75,11 +88,12 @@ const Login = (props) => {
               </label>
             </div>
             <div className="flex px-10 py-4 bg-gray-100 border-t border-gray-100">
-              <Link to="/signup">
-                <button className="flex btn-indigo" type="button">
-                  Sign Up
+              <Link to="/login">
+                <button className="btn-indigo flex " type="button">
+                  Login
                 </button>
               </Link>
+
               {btnLoading ? (
                 <button
                   type="button"
@@ -102,9 +116,9 @@ const Login = (props) => {
                 <button
                   className="btn-indigo ml-auto flex items-center"
                   type="button"
-                  onClick={(e) => Login()}
+                  onClick={(e) => SignUp()}
                 >
-                  Login
+                  SignUp
                 </button>
               )}
             </div>
@@ -116,7 +130,7 @@ const Login = (props) => {
 };
 const mapStateToProps = (state) => ({});
 const mapDispatchToProps = {
-  login,
+  signUp,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(SingUp);

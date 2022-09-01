@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_REMOVE_TOKEN, LOGIN_LOADING } from "./constants";
+import { LOGIN_SUCCESS, LOGIN_REMOVE_TOKEN } from "./constants";
 
 const initialState = {
   token: null,
@@ -9,7 +9,8 @@ const initialState = {
 export function authReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      // console.log(action)
+      console.log(action.payload.data);
+
       return {
         ...state,
         token: action.payload.token,
@@ -21,12 +22,6 @@ export function authReducer(state = initialState, action) {
         token: null,
         user: {},
       };
-    case LOGIN_LOADING:
-      return {
-        ...state,
-        loading: action.payload,
-      };
-    //break;
     default:
       return state;
   }

@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import RouteWithLayout from "../jsx/components/layouts/RouteWithLayout";
 import Todo from "../Todo";
 import Login from "./components/pages/Auth/Login";
+import SignUp from "./components/pages/Auth/SignUp";
 import Sidebar from "./components/layouts/Sidebar";
 import Header from "./components/layouts/Header";
 import Home from "./components/dashboard/Home";
@@ -15,15 +16,17 @@ import CategoryIndex from "./components/category/CategoryIndex";
 import AddCategory from "./components/category/AddCategory";
 import BlogIndex from "./components/blog/BlogIndex";
 import AddBlog from "./components/blog/AddBlog";
+import GroupIndex from "./components/group/GroupIndex";
+import AddGroup from "./components/group/AddGroup";
 
 const Markup = (props) => {
-  // console.log(props.token);
-  // const [path, setPath] = useState("");
-  // const [pagePath, setPagePath] = useState("");
   const routes = [
     { url: "login", component: Login, access: "public", restricted: true },
+    { url: "signup", component: SignUp, access: "public", restricted: true },
+
     { url: "todo", component: Todo, access: "private", restricted: false },
     { url: "dashboard", component: Home, access: "private", restricted: false },
+    //category
     {
       url: "category",
       component: CategoryIndex,
@@ -42,6 +45,7 @@ const Markup = (props) => {
       access: "private",
       restricted: false,
     },
+    //blog
     { url: "Blog", component: BlogIndex, access: "private", restricted: false },
     {
       url: "Blog/add",
@@ -52,6 +56,26 @@ const Markup = (props) => {
     {
       url: "Blog/edit/:id",
       component: AddBlog,
+      access: "private",
+      restricted: false,
+    },
+
+    //group
+    {
+      url: "group",
+      component: GroupIndex,
+      access: "private",
+      restricted: false,
+    },
+    {
+      url: "group/add",
+      component: AddGroup,
+      access: "private",
+      restricted: false,
+    },
+    {
+      url: "group/edit/:id",
+      component: AddGroup,
       access: "private",
       restricted: false,
     },

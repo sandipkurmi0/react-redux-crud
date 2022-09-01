@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import { logout } from "../../../stores/auth/actions";
 import { NavLink } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 const Sidebar = (props) => {
   return (
     <>
@@ -51,6 +50,40 @@ const Sidebar = (props) => {
                   ></path>
                 </svg>
                 <span className="-mr-1 font-medium">Dashboard</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/group"
+                className="relative flex items-center px-4 py-3 space-x-4 text-white rounded-xl "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M10.644 17.08c2.866-.662 4.539-1.241 3.246-3.682-3.932-7.427-1.042-11.398 3.111-11.398 4.235 0 7.054 4.124 3.11 11.398-1.332 2.455.437 3.034 3.242 3.682 2.483.574 2.647 1.787 2.647 3.889v1.031h-18c0-2.745-.22-4.258 2.644-4.92zm-12.644 4.92h7.809c-.035-8.177 3.436-5.313 3.436-11.127 0-2.511-1.639-3.873-3.748-3.873-3.115 0-5.282 2.979-2.333 8.549.969 1.83-1.031 2.265-3.181 2.761-1.862.43-1.983 1.34-1.983 2.917v.773z" />
+                </svg>
+                <span className="-mr-1 font-medium">Group</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/contact"
+                aria-label="dashboard"
+                className="relative flex items-center px-4 py-3 space-x-4 text-white rounded-xl "
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                >
+                  <path d="M2.59 1.322l2.844-1.322 4.041 7.889-2.724 1.342c-.538 1.259 2.159 6.289 3.297 6.372.09-.058 2.671-1.328 2.671-1.328l4.11 7.932s-2.764 1.354-2.854 1.396c-.598.273-1.215.399-1.842.397-5.649-.019-12.086-10.43-12.133-17.33-.016-2.407.745-4.387 2.59-5.348zm1.93 1.274l-1.023.504c-5.294 2.762 4.177 21.185 9.648 18.686l.972-.474-2.271-4.383-1.026.501c-3.163 1.547-8.262-8.219-5.055-9.938l1.007-.498-2.252-4.398zm15.48 14.404h-1v-13h1v13zm-2-2h-1v-9h1v9zm4-1h-1v-7h1v7zm-6-1h-1v-5h1v5zm-2-1h-1v-3h1v3zm10 0h-1v-3h1v3zm-12-1h-1v-1h1v1z" />
+                </svg>
+                <span className="-mr-1 font-medium">Contact</span>
               </NavLink>
             </li>
             <li>
