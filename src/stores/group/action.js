@@ -1,5 +1,10 @@
 import { SET_GROUP } from "./constants";
-import { __getAllGroupList, __deleteGroupAndContact } from "./services";
+import {
+  __addGroup,
+  __getAllGroupList,
+  __deleteGroupAndContact,
+  __updateGroup,
+} from "./services";
 
 export function setAllGroups(payload) {
   return {
@@ -7,6 +12,21 @@ export function setAllGroups(payload) {
     payload: payload,
   };
 }
+
+export const addGroup = (formData) => (dispatch, getState) => {
+  return new Promise((resolve, reject) => {
+    const { token } = getState().auth;
+    __addGroup(formData, token)
+      .then((response) => {
+        dispatch(getAllGroup());
+        resolve(true);
+      })
+      .catch((error) => {
+        reject(error);
+      })
+      .finally(() => {});
+  });
+};
 
 export const getAllGroup = () => (dispatch, getState) => {
   return new Promise((resolve, reject) => {
@@ -17,6 +37,21 @@ export const getAllGroup = () => (dispatch, getState) => {
       })
       .catch((err) => {
         reject(err);
+      })
+      .finally(() => {});
+  });
+};
+
+export const updateGroup = (formData, id) => (dispatch, getState) => {
+  return new Promise((resolve, reject) => {
+    const { token } = getState().auth;
+    __updateGroup(formData, id, token)
+      .then((response) => {
+        dispatch(getAllGroup());
+        resolve(true);
+      })
+      .catch((error) => {
+        reject(error);
       })
       .finally(() => {});
   });

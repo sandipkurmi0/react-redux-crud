@@ -12,8 +12,7 @@ const GroupIndex = (props) => {
   }, []);
 
   const getAllGroup = async () => {
-    const res = await props.getAllGroup();
-    console.log(res);
+    await props.getAllGroup();
   };
 
   const deleteGroup = async (id) => {
@@ -31,8 +30,8 @@ const GroupIndex = (props) => {
                   <h2 className="font-semibold text-gray-800">Groups</h2>
                 </div>
                 <div>
-                  <Link to="/blog/add">
-                    <button className="btn btn-indigo">Add Group</button>
+                  <Link to="group/add-group">
+                    <button className="btn btn-indigo ">Add Group</button>
                   </Link>
                 </div>
               </div>
@@ -41,10 +40,10 @@ const GroupIndex = (props) => {
               <div className="overflow-x-auto">
                 <table className="min-w-max w-full table-auto">
                   <thead>
-                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                      <th className="py-3 px-6 text-left">id</th>
-                      <th className="py-3 px-6 text-left">Group name</th>
-                      <th className="py-3 px-6 text-left">Total contacts</th>
+                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal ">
+                      <th className="py-3 px-6 text-center">id</th>
+                      <th className="py-3 px-6 text-center">Group name</th>
+                      <th className="py-3 px-6 text-center">Total contacts</th>
                       <th className="py-3 px-6 text-center">Total pending</th>
                       <th className="py-3 px-6 text-center">Total paid</th>
                       <th className="py-3 px-6 text-center">Total approved</th>
@@ -54,54 +53,67 @@ const GroupIndex = (props) => {
                   {props.groups.map((group, index) => (
                     <tbody
                       className="text-gray-600 text-sm font-light"
-                      key={index}
+                      key={group._id}
                     >
                       <tr className="border-b border-gray-200 hover:bg-gray-100">
                         <td className="py-3 px-6 text-left whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="mr-2"></div>
-                            <span className="font-medium">{group}</span>
+                            <span className="font-medium">{index + 1}</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
-                            <span>{group}</span>
+                            <span>{group.groupName}</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-left">
-                          <div className="flex items-center">
-                            <span>Language</span>
+                          <div className="flex justify-center">
+                            <span>2</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-center">
-                          <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
-                            Active
-                          </span>
+                          <div className="flex justify-center">
+                            <span>2</span>
+                          </div>
+                        </td>
+
+                        <td className="py-3 px-6 text-center">
+                          <div className="flex justify-center">
+                            <span>2</span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <div className="flex justify-center">
+                            <span>2</span>
+                          </div>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <div className="flex item-center justify-center">
-                            <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                />
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                />
-                              </svg>
-                            </div>
-                            <Link to={`/blog/edit/`}>
+                            <Link to={`group/${group._id}`}>
+                              <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                  />
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                  />
+                                </svg>
+                              </div>
+                            </Link>
+                            <Link to={`/group/edit/${group._id}`}>
                               <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +132,7 @@ const GroupIndex = (props) => {
                             </Link>
                             <div
                               className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                              onClick={(e) => deleteGroup()}
+                              onClick={(e) => deleteGroup(group._id)}
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"

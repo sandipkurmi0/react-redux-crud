@@ -7,17 +7,26 @@ import { connect } from "react-redux";
 //components
 import RouteWithLayout from "../jsx/components/layouts/RouteWithLayout";
 import Todo from "../Todo";
+//auth
 import Login from "./components/pages/Auth/Login";
 import SignUp from "./components/pages/Auth/SignUp";
+//public
 import Sidebar from "./components/layouts/Sidebar";
 import Header from "./components/layouts/Header";
 import Home from "./components/dashboard/Home";
+//category
 import CategoryIndex from "./components/category/CategoryIndex";
 import AddCategory from "./components/category/AddCategory";
+//blog
 import BlogIndex from "./components/blog/BlogIndex";
 import AddBlog from "./components/blog/AddBlog";
+//contact
+import ContactIndex from "./components/contact/ContactIndex";
+import AddContact from "./components/contact/AddContact";
+//group
 import GroupIndex from "./components/group/GroupIndex";
 import AddGroup from "./components/group/AddGroup";
+import UpdateGroup from "./components/group/UpdateGroup";
 
 const Markup = (props) => {
   const routes = [
@@ -59,6 +68,31 @@ const Markup = (props) => {
       access: "private",
       restricted: false,
     },
+    {
+      url: "group/add-group",
+      component: AddGroup,
+      access: "private",
+      restricted: false,
+    },
+    //contact
+    {
+      url: "group/:id",
+      component: ContactIndex,
+      access: "private",
+      restricted: false,
+    },
+    {
+      url: "group/:id/contact-add",
+      component: AddContact,
+      access: "private",
+      restricted: false,
+    },
+    {
+      url: "group/:id/contact-edit/:contactId",
+      component: AddContact,
+      access: "private",
+      restricted: false,
+    },
 
     //group
     {
@@ -68,14 +102,8 @@ const Markup = (props) => {
       restricted: false,
     },
     {
-      url: "group/add",
-      component: AddGroup,
-      access: "private",
-      restricted: false,
-    },
-    {
       url: "group/edit/:id",
-      component: AddGroup,
+      component: UpdateGroup,
       access: "private",
       restricted: false,
     },

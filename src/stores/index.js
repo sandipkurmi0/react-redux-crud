@@ -12,6 +12,7 @@ import { authReducer } from "./auth/reducers";
 import { categoryReducer } from "./category/reducers";
 import { blogReducer } from "./blog/reducers.js";
 import { groupReducer } from "./group/reducers";
+import { contactReducer } from "./contact/reducers";
 
 const rootReducer = combineReducers({
   todo: todoReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   category: categoryReducer,
   blog: blogReducer,
   group: groupReducer,
+  contact: contactReducer,
 });
 const persistConfig = {
   // Root
