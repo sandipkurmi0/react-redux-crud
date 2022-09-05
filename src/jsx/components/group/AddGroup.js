@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { connect } from "react-redux/es/exports";
 import { useHistory } from "react-router-dom";
@@ -6,6 +7,8 @@ import { addGroup } from "../../../stores/group/action";
 const AddGroup = (props) => {
   const history = useHistory();
   const [btnLoading, setBtnLoading] = useState(false);
+  const [handleOnSubmitBtnSave, setHandleOnSubmitBtnSave] = useState(false);
+
   const [groupName, setGroupName] = useState("");
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
@@ -18,7 +21,6 @@ const AddGroup = (props) => {
   };
 
   const csvFileToArray = (string) => {
-    console.log("klsjdfljsdlfj");
     const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
     const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
 
@@ -31,36 +33,34 @@ const AddGroup = (props) => {
       return obj;
     });
 
-    console.log(array);
-    console.log("array from");
     setArray(array);
   };
 
-  if (file) {
-    fileReader.onload = function (event) {
-      const text = event.target.result;
-      csvFileToArray(text);
-    };
+  const handleOnSubmit = () => {
+    setHandleOnSubmitBtnSave(!false);
+    if (file) {
+      fileReader.onload = function (event) {
+        const text = event.target.result;
+        csvFileToArray(text);
+      };
 
-    fileReader.readAsText(file);
-  }
+      fileReader.readAsText(file);
+    }
+  };
 
   const createGroup = async () => {
-    console.log("ljlsjdfljdf");
     setBtnLoading(true);
-
     try {
-      console.log(csvArray.length);
-      if (csvArray.length > 0) {
+      if (csvArray !== []) {
         const data = {
           groupName,
           csvArray,
         };
-        await props.addGroup(data);
+        const response = await props.addGroup(data);
         setBtnLoading(false);
-        // if (response) {
-        //   history.push("/group");
-        // }
+        if (response) {
+          history.push("/group");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -100,20 +100,41 @@ const AddGroup = (props) => {
                   onChange={(e) => setGroupName(e.target.value)}
                 />
               </div>
-              <div className="max-w-2xl mx-auto">
-                <label
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  htmlFor="file_input"
-                >
-                  Upload file
+              <div className="flex justify-evenly mb-5">
+                <label>
+                  <span className="sr-only">Choose your csv File</span>
+                  <input
+                    className="block w-full text-sm text-slate-500
+                      file:mr-4 file:py-2 file:px-4
+                      file:rounded-full file:border-0
+                      file:text-sm file:font-semibold
+                      file:bg-violet-50 file:text-violet-700
+                      hover:file:bg-violet-100
+                    "
+                    type={"file"}
+                    id={"csvFileInput"}
+                    accept={".csv"}
+                    onChange={handleOnChange}
+                  />
                 </label>
-                <input
-                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                  type={"file"}
-                  id={"csvFileInput"}
-                  accept={".csv"}
-                  onChange={handleOnChange}
-                />
+
+                {handleOnSubmitBtnSave ? ( // <button
+                  <button
+                    type="button"
+                    className="btn-indigo ml-auto flex items-center cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    disabled=""
+                  >
+                    Saved
+                  </button>
+                ) : (
+                  <button
+                    className="btn-indigo ml-auto flex items-center"
+                    type="button"
+                    onClick={handleOnSubmit}
+                  >
+                    IMPORT CSV
+                  </button>
+                )}
               </div>
               <div className="flex px-10 py-4 border-t">
                 {btnLoading ? (

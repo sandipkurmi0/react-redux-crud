@@ -118,3 +118,11 @@ ul li a:hover{
 }
 
 /* bg-gradient-to-r from-sky-600 to-cyan-400 */
+
+
+
+._loading_overlay_content {
+  top: 45%;
+  left: 35%;
+  position: fixed;
+}

@@ -34,6 +34,7 @@ export const getAllGroup = () => (dispatch, getState) => {
     __getAllGroupList(token)
       .then((response) => {
         dispatch(setAllGroups(response));
+        resolve(response);
       })
       .catch((err) => {
         reject(err);

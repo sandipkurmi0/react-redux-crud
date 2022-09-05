@@ -12,7 +12,6 @@ export function __addGroup(formData, token) {
         },
       })
       .then((response) => {
-        console.log(response);
         resolve(response.data);
       })
       .catch((error) => {
